@@ -17,7 +17,7 @@ public class UserService {
     public User get(int id) throws Exception {
         UserDB userDB = new UserDB();
         User user = userDB.get(id);
-        return null;
+        return user;
     }
     
     public List<User> getAll(String email) throws Exception {
@@ -45,6 +45,6 @@ public class UserService {
         noteDB.delete(user);
     }
 }
-}
+
     
 
