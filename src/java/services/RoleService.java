@@ -15,7 +15,7 @@ import models.Role;
 public class RoleService {
     public Role get(int id, String name) throws Exception {
         RoleDB roleDB = new RoleDB();
-        Role role = roleDB.get(id);
+        Role role = (Role) roleDB.getAll(name);
         
         if(role.getName().equals(name))
             return role;
