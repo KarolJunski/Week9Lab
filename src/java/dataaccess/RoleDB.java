@@ -18,7 +18,7 @@ public class RoleDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "SELECT * FROM note";
+        String sql = "SELECT * FROM role";
     try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
