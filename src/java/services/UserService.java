@@ -20,7 +20,7 @@ public class UserService {
         return user;
     }
     
-    public List<User> getAll(String email) throws Exception {
+    public List<User> getAll() throws Exception {
         UserDB userDB = new UserDB();
         List<User> users = userDB.getAll();
         return users;

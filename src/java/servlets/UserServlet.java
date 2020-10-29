@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.User;
+import services.UserService;
 
 
 /**
@@ -25,9 +26,17 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        ArrayList<User> users = new ArrayList();
-        session.setAttribute("users", users);
+        List<User> users = null;
+        UserService us = new UserService();
+        try {
+            users = us.getAll();
+            request.setAttribute("users", users);
+        } catch (Exception ex) {
+        }
+        
+        
+        
+        
         
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }

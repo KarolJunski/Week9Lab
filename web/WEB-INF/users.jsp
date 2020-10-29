@@ -45,18 +45,20 @@
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
-            </td>
-                <c:forEach items="${users}">
+                <c:forEach items="${users}" var="user">
+                    <tr>
                     <td>${user.email}</td>
                     <td>${user.fname}</td>
                     <td>${user.lname}</td>
                     <td>${user.role}</td>
-                    <td><input type="radio" name="edit" value="edit">Edit? </input></td>
-                    <td><input type="button" name="delete" value="delete"> Delete? </input></td>
+                    <td><input type="radio" name="edit" value="edit"></input></td>
+                    <td><input type="button" name="delete" value="delete"></input></td>
+                    </tr>
                 </c:forEach>
         </table>
+            </td>
     <td>
-    <c:if test="${user ne null}">
+    <c:if test="${users ne null}">
         <form action="edit" method="post">
             <input type="text" name="fname" value="${user.fname}"><br>
             <input type="text" name="lname" value="${user.lname}"><br>
