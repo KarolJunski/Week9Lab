@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import models.Role;
 /*
 Only contains the getAll() method
 */
@@ -17,14 +18,14 @@ public class RoleDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "SELECT * FROM note WHERE owner=?";
+        String sql = "SELECT * FROM note";
     try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int roleId = rs.getInt(1);
-                String roleName = rs.getString(2);
-                Role roles = new Role(roleId, roleName);
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                Role roles = new Role(id, name);
                 roles.add(roles);
             }
         } finally {
