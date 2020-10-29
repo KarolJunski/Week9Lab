@@ -10,31 +10,34 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import models.User;
 
 /**
  *
  * @author 821052
  */
 public class UserDB {
-    public List<User> getAll(String owner) throws Exception {
-        List<User> notes = new ArrayList<>();
+    public List<User> getAll() throws Exception {
+        List<User> users = new ArrayList<>();
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "SELECT * FROM note WHERE owner=?";
+        String sql = "SELECT * FROM user";
         
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, owner);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int noteId = rs.getInt(1);
-                String title = rs.getString(2);
-                String contents = rs.getString(3);
-                User user = new User(noteId, title, contents, owner);
-                notes.add(user);
+                String email = rs.getString(1);
+                int active = rs.getInt(2);
+                String firstName = rs.getString(3);
+                String lastName = rs.getString(4);
+                String password = rs.getString(5);
+                int role = rs.getInt(6);
+                User user = new User(email, active, firstName, lastName, password, role);
+                users.add(user);
             }
         } finally {
             DBUtil.closeResultSet(rs);
@@ -42,26 +45,28 @@ public class UserDB {
             cp.freeConnection(con);
         }
 
-        return notes;
+        return users;
     }
 
-    public User get(int userId) throws Exception {
+    public User get(String email) throws Exception {
         User user = null;
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM note WHERE note_id=?";
+        String sql = "SELECT * FROM user WHERE email=?";
         
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, userId);
+            ps.setString(1, email);
             rs = ps.executeQuery();
             if (rs.next()) {
-                String title = rs.getString(2);
-                String contents = rs.getString(3);
-                String owner = rs.getString(4);
-                user = new User(userID, title, contents, owner);
+                int active = rs.getInt(2);
+                String firstName = rs.getString(3);
+                String lastName = rs.getString(4);
+                String password = rs.getString(5);
+                int role = rs.getInt(6);
+                user = new User(email, active, firstName, lastName, password, role);
             }
         } finally {
             DBUtil.closeResultSet(rs);
@@ -69,20 +74,23 @@ public class UserDB {
             cp.freeConnection(con);
         }
         
-        return note;
+        return user;
     }
 
-    public void insert(Note note) throws Exception {
+    public void insert(User user) throws Exception {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
-        String sql = "INSERT INTO note (title, contents, owner) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO user ('email', 'active', 'first_name', 'last_name', 'password', 'role') VALUES (?, ?, ?, ?, ?, ?)";
         
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, note.getTitle());
-            ps.setString(2, note.getContents());
-            ps.setString(3, note.getOwner());
+            ps.setString(1, user.getEmail());
+            ps.setInt(2, user.getActive());
+            ps.setString(3, user.getFname());
+            ps.setString(4, user.getLname());
+            ps.setString(5, user.getPassword());
+            ps.setInt(6, user.getRole());
             ps.executeUpdate();
         } finally {
             DBUtil.closePreparedStatement(ps);
@@ -90,17 +98,20 @@ public class UserDB {
         }
     }
 
-    public void update(Note note) throws Exception {
+    public void update(User user) throws Exception {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
-        String sql = "UPDATE note SET title=?, contents=? WHERE note_id=?";
+        String sql = "UPDATE user active=?, first_name=?, last_name=?, password=?, role=? WHERE email=?";
         
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, note.getTitle());
-            ps.setString(2, note.getContents());
-            ps.setInt(3, note.getNoteId());
+            ps.setInt(1, user.getActive());
+            ps.setString(2, user.getFname());
+            ps.setString(3, user.getLname());
+            ps.setString(4, user.getPassword());
+            ps.setInt(5, user.getRole());
+            ps.setString(6, user.getEmail());
             ps.executeUpdate();
         } finally {
             DBUtil.closePreparedStatement(ps);
@@ -108,15 +119,15 @@ public class UserDB {
         }
     }
 
-    public void delete(Note note) throws Exception {
+    public void delete(User user) throws Exception {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
-        String sql = "DELETE FROM note WHERE note_id=?";
+        String sql = "DELETE FROM user WHERE email=?";
         
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, note.getNoteId());
+            ps.setString(1, user.getEmail());
             ps.executeUpdate();
         } finally {
             DBUtil.closePreparedStatement(ps);
