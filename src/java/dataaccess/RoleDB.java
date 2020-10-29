@@ -20,10 +20,9 @@ public class RoleDB {
         String sql = "SELECT * FROM note WHERE owner=?";
     try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, owner);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int noteId = rs.getInt(1);
+                int roleId = rs.getInt(1);
                 String roleName = rs.getString(2);
                 Role roles = new Role(roleId, roleName);
                 roles.add(roles);
