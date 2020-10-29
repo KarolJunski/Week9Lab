@@ -12,7 +12,7 @@ Only contains the getAll() method
 public class RoleDB {
     
     public List<Role> getAll(String owner) throws Exception {
-        List<Role> roles = new ArrayList<>();
+        List<Role> roleList = new ArrayList<>();
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
@@ -26,7 +26,7 @@ public class RoleDB {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
                 Role roles = new Role(id, name);
-                roles.add(roles);
+                roleList.add(roles);
             }
         } finally {
             DBUtil.closeResultSet(rs);
@@ -34,6 +34,6 @@ public class RoleDB {
             cp.freeConnection(con);
         }
 
-        return roles;
+        return roleList;
     }
 }
