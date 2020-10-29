@@ -34,10 +34,17 @@ public class UserServlet extends HttpServlet {
         } catch (Exception ex) {
         }
         
-        
-        
-        
-        
+        String action = request.getParameter("action");
+        if (action != null && action.equals("view")) {
+            try {
+                char ch = '+';
+                String email = request.getParameter("email");
+                email = email.replace(' ',ch);
+                User editUser = us.get(email);
+                request.setAttribute("editUser", editUser);
+            } catch (Exception ex) {
+            }
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
 

@@ -4,8 +4,8 @@
     Author     : 821052
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,29 +51,27 @@
                     <td>${user.fname}</td>
                     <td>${user.lname}</td>
                     <td>${user.role}</td>
-                    <td><input type="radio" name="edit" value="edit"></input></td>
-                    <td><input type="button" name="delete" value="delete"></input></td>
+                    <td><a href="user?action=view&amp;email=${user.email}">Edit</a><br></td>
+                    <td><input type="button" name="delete" value="delete"></td>
                     </tr>
                 </c:forEach>
         </table>
             </td>
     <td>
-    <c:if test="${users ne null}">
-        <form action="edit" method="post">
-            <input type="text" name="fname" value="${user.fname}"><br>
-            <input type="text" name="lname" value="${user.lname}"><br>
-            <input type="text" name="password" value="${user.password}"><br>
-            <select name="role" value="${user.role}">
+            <input type="text" name="fname" value="${editUser.fname}"><br>
+            <input type="text" name="lname" value="${editUser.lname}"><br>
+            <input type="text" name="password" value="${editUser.password}"><br>
+            <select name="role" value="${editUser.role}">
                 <option value="role">System admin</option>
                 <option value="role">Regular user</option>
                 <option value="role">Company admin</option>
             </select><br>
-            <input type="hidden" name="action" value="add">
-            <input type="submit" value="add">
-        </form>
-    </c:if>
+            <input type="hidden" name="action" value="save">
+            <input type="submit" value="save">
+            <br>
+            <input type="hidden" name="action" value="cancel">
+            <input type="submit" value="cancel">
 </td>
-
 </table>
 </body>
 </html>
