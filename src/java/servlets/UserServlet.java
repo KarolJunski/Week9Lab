@@ -19,15 +19,12 @@ import services.RoleService;
 import services.UserService;
 
 
-/**
- *
- * @author 821052
- */
 public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         List<User> users = null;
         UserService us = new UserService();
         List<Role> roles = null;
@@ -36,6 +33,7 @@ public class UserServlet extends HttpServlet {
         String action = request.getParameter("action");
         
         if (action != null && action.equals("view")) {
+            
             try {
                 char ch = '+';
                 String email = request.getParameter("email");
@@ -43,38 +41,50 @@ public class UserServlet extends HttpServlet {
                 User editUser = us.get(email);
                 request.setAttribute("editUser", editUser);
             } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         }else if(action != null && action.equals("delete")){
+            
             try {
                 char ch = '+';
                 String email = request.getParameter("email");
                 email = email.replace(' ',ch);
                 us.delete(email);
             } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         }
+        
         try {
             users = us.getAll();
             request.setAttribute("users", users);
         } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         try {
             roles = rs.getAll();
             request.setAttribute("roles", roles);
         } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {   
+        
         List<User> users = null;
         UserService us = new UserService();
         List<Role> roles = null;
         RoleService rs = new RoleService();
+        
         try {
+            
             String action = request.getParameter("action");
             
             switch(action){
@@ -95,20 +105,25 @@ public class UserServlet extends HttpServlet {
                     us.update(editEmail, editRole, editFname, editLname, editPassword, editRole);
                     break;     
             }
+            
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         try {
             users = us.getAll();
             request.setAttribute("users", users);
         } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         try {
             roles = rs.getAll();
             request.setAttribute("roles", roles);
         } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
 
