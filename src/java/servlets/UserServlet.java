@@ -94,7 +94,9 @@ public class UserServlet extends HttpServlet {
                     String lname = request.getParameter("lname");
                     String password = request.getParameter("password");
                     int role = Integer.parseInt(request.getParameter("role"));
+                    if(email.length() > 0 && fname.length() > 0 && lname.length() > 0 && password.length() > 0 && role > 0){
                     us.insert(email, 1, fname, lname, password, role);
+                    }
                     break;
                 case "save":
                     String editEmail = request.getParameter("editEmail");
