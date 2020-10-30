@@ -59,10 +59,11 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {       
+            throws ServletException, IOException {   
+        List<User> users = null;
+        UserService us = new UserService();
         try {
             String action = request.getParameter("action");
-            UserService us = new UserService();
             
             switch(action){
                 case "add":
