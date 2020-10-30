@@ -104,7 +104,9 @@ public class UserServlet extends HttpServlet {
                     String editLname = request.getParameter("editLname");
                     String editPassword = request.getParameter("editPassword");
                     int editRole = Integer.parseInt(request.getParameter("editRole"));
+                    if(editEmail.length() > 0 && editFname.length() > 0 && editLname.length() > 0 && editPassword.length() > 0 && editRole > 0){
                     us.update(editEmail, editRole, editFname, editLname, editPassword, editRole);
+                    }
                     break;     
             }
             
