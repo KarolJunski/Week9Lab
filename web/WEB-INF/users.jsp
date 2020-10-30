@@ -79,13 +79,14 @@
             </td>
             <td>
                 <c:if test="${editUser != null}">
-                    <input type="text" name="fname" value="${editUser.fname}"><br>
-                    <input type="text" name="lname" value="${editUser.lname}"><br>
-                    <input type="text" name="password" value="${editUser.password}"><br>
-                    <select>
-                        <option>System Admin</option>
-                        <option>Regular User</option>
-                        <option>Company Admin</option>
+                    <input type="hidden" name="editEmail" value="${editUser.email}"><br>
+                    <input type="text" name="editFname" value="${editUser.fname}"><br>
+                    <input type="text" name="editLname" value="${editUser.lname}"><br>
+                    <input type="text" name="editPassword" value="${editUser.password}"><br>
+                    <select name="editRole">
+                        <option value="1">System Admin</option>
+                        <option value="2">Regular User</option>
+                        <option value="3">Company Admin</option>
                     </select>
                     <br>
                     <input type="hidden" name="action" value="save">
