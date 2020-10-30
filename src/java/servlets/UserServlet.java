@@ -13,7 +13,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Role;
 import models.User;
+import services.RoleService;
 import services.UserService;
 
 
@@ -28,6 +30,8 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         List<User> users = null;
         UserService us = new UserService();
+        List<Role> roles = null;
+        RoleService rs = new RoleService();
         
         String action = request.getParameter("action");
         
@@ -52,6 +56,12 @@ public class UserServlet extends HttpServlet {
         try {
             users = us.getAll();
             request.setAttribute("users", users);
+        } catch (Exception ex) {
+        }
+        
+         try {
+            roles = rs.getAll();
+            request.setAttribute("roles", roles);
         } catch (Exception ex) {
         }
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
