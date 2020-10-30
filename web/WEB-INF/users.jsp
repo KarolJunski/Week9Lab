@@ -19,7 +19,9 @@
             <tr class="table_header">
                 <th class="table_padding">Add User</th>
                 <th class="table_padding">Manage Users</th>
+                <c:if test="${editUser != null}">
                 <th class="table_padding">Edit User</th>
+                </c:if>
             </tr>
             <td>
                 <form action="user" method="post">
