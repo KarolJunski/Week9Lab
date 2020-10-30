@@ -28,12 +28,6 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         List<User> users = null;
         UserService us = new UserService();
-        try {
-            System.out.println("TEST");
-            users = us.getAll();
-            request.setAttribute("users", users);
-        } catch (Exception ex) {
-        }
         
         String action = request.getParameter("action");
         
@@ -55,13 +49,17 @@ public class UserServlet extends HttpServlet {
             } catch (Exception ex) {
             }
         }
+        try {
+            users = us.getAll();
+            request.setAttribute("users", users);
+        } catch (Exception ex) {
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
+            throws ServletException, IOException {       
         try {
             String action = request.getParameter("action");
             UserService us = new UserService();
@@ -93,6 +91,11 @@ public class UserServlet extends HttpServlet {
             }
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            users = us.getAll();
+            request.setAttribute("users", users);
+        } catch (Exception ex) {
         }
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
