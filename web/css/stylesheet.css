@@ -17,6 +17,7 @@ input[type="submit"], select {
 .cancel {
     border-style: none;
     background-color: #DDDDDD;
+    width: 100%;
 }
 
 .table_header {

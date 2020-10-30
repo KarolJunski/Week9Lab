@@ -95,8 +95,7 @@
                         <input type="hidden" name="action" value="save">
                         <input class="save" type="submit" value="Save">
                         <br>
-                        <input type="hidden" name="action" value="cancel">
-                        <input class="cancel" type="submit" value="Cancel">
+                        <a href="user"><input class="cancel" type="button" value="Cancel" href="user"></a>
                     </c:if>
                 </form>
             </td>

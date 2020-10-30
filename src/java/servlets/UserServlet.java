@@ -81,14 +81,7 @@ public class UserServlet extends HttpServlet {
                     String editPassword = request.getParameter("editPassword");
                     int editRole = Integer.parseInt(request.getParameter("editRole"));
                     us.update(editEmail, editRole, editFname, editLname, editPassword, editRole);
-                    break;
-                case "cancel":
-                    request.setAttribute("editEmail", null);
-                    request.setAttribute("editFname", null);
-                    request.setAttribute("editLname", null);
-                    request.setAttribute("editPassword", null);
-                    request.setAttribute("editRole", null);
-                    break;        
+                    break;     
             }
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
