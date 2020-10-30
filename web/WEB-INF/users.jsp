@@ -28,9 +28,9 @@
                     <input type="text" name="lname" placeholder="Lastname" value="${lname}"><br>
                     <input type="text" name="password" placeholder="Password" value="${password}"><br>
                     <select name="role">
-                        <option value="1">System Admin</option>
-                        <option value="2">Regular User</option>
-                        <option value="3">Company Admin</option>
+                        <c:forEach items="${roles}" var="role">
+                            <option value ="${role.id}">${role.name}</option>
+                        </c:forEach>
                     </select><br>
                     <input type="hidden" name="action" value="add">
                     <input class="add" type="submit" value="Add">
@@ -53,15 +53,13 @@
                             <td>${user.email}</td>
                             <td>${user.fname}</td>
                             <td>${user.lname}</td>
-                            <c:if test = "${user.role eq 1}">
-                                <td>System Admin</td>
-                            </c:if>
-                            <c:if test = "${user.role eq 2}">
-                                <td>Regular User</td>
-                            </c:if>
-                            <c:if test = "${user.role eq 3}">
-                                <td>Company Admin</td>
-                            </c:if>
+                            
+                            <c:forEach items="${roles}" var="role">
+                                <c:if test = "${user.role eq role.id}">
+                                    <td>${role.name}</td>
+                                </c:if>
+                            </c:forEach>
+                                    
                             <c:if test="${user.active eq 1}">
                                 <td>
                                     <input type="checkbox" disabled checked>
@@ -87,9 +85,9 @@
                         <input type="text" name="editLname" value="${editUser.lname}"><br>
                         <input type="text" name="editPassword" value="${editUser.password}"><br>
                         <select name="editRole">
-                            <option value="1">System Admin</option>
-                            <option value="2">Regular User</option>
-                            <option value="3">Company Admin</option>
+                            <c:forEach items="${roles}" var="role">
+                                <option value ="${role.id}">${role.name}</option>
+                            </c:forEach>
                         </select>
                         <br>
                         <input type="hidden" name="action" value="save">
