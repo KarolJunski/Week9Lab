@@ -6,6 +6,9 @@
 package services;
 
 import dataaccess.RoleDB;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Role;
 
 /**
@@ -13,14 +16,17 @@ import models.Role;
  * @author 821052
  */
 public class RoleService {
-    public Role get(int id, String name) throws Exception {
+    
+    public List<Role> getAll()
+    {
         RoleDB roleDB = new RoleDB();
-        Role role = (Role) roleDB.getAll(name);
-        
-        if(role.getName().equals(name))
-            return role;
-        else
-            return null;
-        
+        List<Role> roles;
+        try {
+            roles = roleDB.getAll();
+            return roles;
+        } catch (Exception ex) {
+            Logger.getLogger(RoleService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }
