@@ -11,7 +11,7 @@ Only contains the getAll() method
 */
 public class RoleDB {
     
-    public List<Role> getAll(String owner) throws Exception {
+    public List<Role> getAll() throws Exception {
         List<Role> roleList = new ArrayList<>();
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
