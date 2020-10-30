@@ -29,6 +29,7 @@ public class UserServlet extends HttpServlet {
         List<User> users = null;
         UserService us = new UserService();
         try {
+            System.out.println("TEST");
             users = us.getAll();
             request.setAttribute("users", users);
         } catch (Exception ex) {
@@ -82,7 +83,13 @@ public class UserServlet extends HttpServlet {
                     int editRole = Integer.parseInt(request.getParameter("editRole"));
                     us.update(editEmail, editRole, editFname, editLname, editPassword, editRole);
                     break;
-                    
+                case "cancel":
+                    request.setAttribute("editEmail", null);
+                    request.setAttribute("editFname", null);
+                    request.setAttribute("editLname", null);
+                    request.setAttribute("editPassword", null);
+                    request.setAttribute("editRole", null);
+                    break;        
             }
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);

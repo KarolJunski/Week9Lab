@@ -78,6 +78,7 @@
                 </table>
             </td>
             <td>
+                <form action="user" method="post">
                 <c:if test="${editUser != null}">
                     <input type="hidden" name="editEmail" value="${editUser.email}"><br>
                     <input type="text" name="editFname" value="${editUser.fname}"><br>
@@ -94,8 +95,9 @@
                     <br>
                     <input type="hidden" name="action" value="cancel">
                     <input type="submit" value="cancel">
+                    </c:if>
+                    </form>
                 </td>
             </table>
-        </c:if>
     </body>
 </html>
