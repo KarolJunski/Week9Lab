@@ -86,7 +86,14 @@
                         <input type="text" name="editPassword" value="${editUser.password}"><br>
                         <select name="editRole">
                             <c:forEach items="${roles}" var="role">
-                                <option value ="${role.id}">${role.name}</option>
+                                <c:if test = "${role.id eq editUser.role}">
+                                     <option selected value ="${role.id}">${role.name}</option>
+                                </c:if>
+                                     
+                                <c:if test = "${role.id ne editUser.role}">
+                                    <option value ="${role.id}">${role.name}</option>
+                                </c:if>
+                                    
                             </c:forEach>
                         </select>
                         <br>
