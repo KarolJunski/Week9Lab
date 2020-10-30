@@ -59,7 +59,7 @@ public class UserServlet extends HttpServlet {
         } catch (Exception ex) {
         }
         
-         try {
+        try {
             roles = rs.getAll();
             request.setAttribute("roles", roles);
         } catch (Exception ex) {
@@ -101,6 +101,12 @@ public class UserServlet extends HttpServlet {
         try {
             users = us.getAll();
             request.setAttribute("users", users);
+        } catch (Exception ex) {
+        }
+        
+        try {
+            roles = rs.getAll();
+            request.setAttribute("roles", roles);
         } catch (Exception ex) {
         }
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
