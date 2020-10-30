@@ -29,4 +29,15 @@ public class RoleService {
         }
         return null;
     }
+    public Role get(int index)
+    {
+        RoleDB roleDB = new RoleDB();
+        try {
+            Role role = roleDB.get(index);
+            return role;
+        } catch (Exception ex) {
+            Logger.getLogger(RoleService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
