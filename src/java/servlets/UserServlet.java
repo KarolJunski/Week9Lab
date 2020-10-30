@@ -72,6 +72,8 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {   
         List<User> users = null;
         UserService us = new UserService();
+        List<Role> roles = null;
+        RoleService rs = new RoleService();
         try {
             String action = request.getParameter("action");
             
