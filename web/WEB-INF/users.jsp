@@ -20,15 +20,15 @@
                 <th>Edit User</th>
             </tr>
             <td>
-                <form action="add" method="post">
-                    <input type="text" name="email" placeholder="Email"><br>
-                    <input type="text" name="fname" placeholder="Firstname"><br>
-                    <input type="text" name="lname" placeholder="Lastname"><br>
-                    <input type="text" name="password" placeholder="Password"><br>
+                <form action="user" method="post">
+                    <input type="text" name="email" placeholder="Email" value="${email}"><br>
+                    <input type="text" name="fname" placeholder="Firstname" value="${fname}"><br>
+                    <input type="text" name="lname" placeholder="Lastname" value="${lname}"><br>
+                    <input type="text" name="password" placeholder="Password" value="${password}"><br>
                     <select name="role">
-                        <option value="role">System admin</option>
-                        <option value="role">Regular user</option>
-                        <option value="role">Company admin</option>
+                        <option value="1">System admin</option>
+                        <option value="2">Regular user</option>
+                        <option value="3">Company admin</option>
                     </select><br>
                     <input type="hidden" name="action" value="add">
                     <input type="submit" value="add">
@@ -42,36 +42,59 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Role</th>
+                        <th>Active</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
-                <c:forEach items="${users}" var="user">
-                    <tr>
-                    <td>${user.email}</td>
-                    <td>${user.fname}</td>
-                    <td>${user.lname}</td>
-                    <td>${user.role}</td>
-                    <td><a href="user?action=view&amp;email=${user.email}">Edit</a><br></td>
-                    <td><input type="button" name="delete" value="delete"></td>
-                    </tr>
-                </c:forEach>
-        </table>
+                    <c:forEach items="${users}" var="user">
+                        <tr>
+                            <td>${user.email}</td>
+                            <td>${user.fname}</td>
+                            <td>${user.lname}</td>
+                            <c:if test = "${user.role eq 1}">
+                                <td>System Admin</td>
+                            </c:if>
+                            <c:if test = "${user.role eq 2}">
+                                <td>Regular User</td>
+                            </c:if>
+                            <c:if test = "${user.role eq 3}">
+                                <td>Company Admin</td>
+                            </c:if>
+                            <c:if test="${user.active eq 1}">
+                                <td>
+                                    <input type="checkbox" disabled checked>
+                                </td>
+                            </c:if>
+                            <c:if test="${user.active != 1}">
+                                <td>
+                                    <input type="checkbox" disabled>
+                                </td>
+                            </c:if>
+                            <td><a href="user?action=view&amp;email=${user.email}">Edit</a><br></td>
+                            <td>
+                                <a href="user?action=delete&amp;email=${user.email}">Delete</a><br></td>
+                        </tr>
+                    </c:forEach>
+                </table>
             </td>
-    <td>
-            <input type="text" name="fname" value="${editUser.fname}"><br>
-            <input type="text" name="lname" value="${editUser.lname}"><br>
-            <input type="text" name="password" value="${editUser.password}"><br>
-            <select name="role" value="${editUser.role}">
-                <option value="role">System admin</option>
-                <option value="role">Regular user</option>
-                <option value="role">Company admin</option>
-            </select><br>
-            <input type="hidden" name="action" value="save">
-            <input type="submit" value="save">
-            <br>
-            <input type="hidden" name="action" value="cancel">
-            <input type="submit" value="cancel">
-</td>
-</table>
-</body>
+            <td>
+                <c:if test="${editUser != null}">
+                    <input type="text" name="fname" value="${editUser.fname}"><br>
+                    <input type="text" name="lname" value="${editUser.lname}"><br>
+                    <input type="text" name="password" value="${editUser.password}"><br>
+                    <select>
+                        <option>System Admin</option>
+                        <option>Regular User</option>
+                        <option>Company Admin</option>
+                    </select>
+                    <br>
+                    <input type="hidden" name="action" value="save">
+                    <input type="submit" value="save">
+                    <br>
+                    <input type="hidden" name="action" value="cancel">
+                    <input type="submit" value="cancel">
+                </td>
+            </table>
+        </c:if>
+    </body>
 </html>

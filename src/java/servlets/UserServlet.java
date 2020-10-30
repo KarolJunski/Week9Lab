@@ -6,13 +6,13 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import models.User;
 import services.UserService;
 
@@ -35,6 +35,7 @@ public class UserServlet extends HttpServlet {
         }
         
         String action = request.getParameter("action");
+        
         if (action != null && action.equals("view")) {
             try {
                 char ch = '+';
@@ -44,6 +45,14 @@ public class UserServlet extends HttpServlet {
                 request.setAttribute("editUser", editUser);
             } catch (Exception ex) {
             }
+        }else if(action != null && action.equals("delete")){
+            try {
+                char ch = '+';
+                String email = request.getParameter("email");
+                email = email.replace(' ',ch);
+                us.delete(email);
+            } catch (Exception ex) {
+            }
         }
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
@@ -51,9 +60,25 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        ArrayList<User> users = new ArrayList();
-        users = (ArrayList<User>) session.getAttribute("users");
+        
+        try {
+            String action = request.getParameter("action");
+            UserService us = new UserService();
+            
+            switch(action){
+                case "add":
+                    String email = request.getParameter("email");
+                    String fname = request.getParameter("fname");
+                    String lname = request.getParameter("lname");
+                    String password = request.getParameter("password");
+                    int role = Integer.parseInt(request.getParameter("role"));
+                    us.insert(email, 1, fname, lname, password, role);
+                    break;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
 
 }
