@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import models.User;
 
 /**
@@ -49,32 +50,16 @@ public class UserDB {
     }
 
     public User get(String email) throws Exception {
-        User user = null;
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        String sql = "SELECT * FROM user WHERE email=?";
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
         
         try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, email);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                int active = rs.getInt(2);
-                String firstName = rs.getString(3);
-                String lastName = rs.getString(4);
-                String password = rs.getString(5);
-                int role = rs.getInt(6);
-                user = new User(email, active, firstName, lastName, password, role);
-            }
+            
+            User user = em.find(User.class, email);
+            return user;
         } finally {
-            DBUtil.closeResultSet(rs);
-            DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
+            em.close();
         }
-        
-        return user;
     }
 
     public void insert(User user) throws Exception {
