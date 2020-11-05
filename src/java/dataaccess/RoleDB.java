@@ -35,4 +35,5 @@ public class RoleDB {
         } finally {
             em.close();
         }
+    }
 }
