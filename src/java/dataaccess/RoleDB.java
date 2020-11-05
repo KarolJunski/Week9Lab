@@ -29,7 +29,7 @@ public class RoleDB {
          EntityManager em = DBUtil .getEmFactory().createEntityManager();
         
     try {
-           Role role = em.find(Role.class, role_id);
+           Role role = em.find(Role.class, index);
            return role;
            
         } finally {
