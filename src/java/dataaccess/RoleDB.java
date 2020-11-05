@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import models.Role;
-import static models.Role_.roleId;
 /*
 Only contains the getAll() method
 */
@@ -30,7 +29,7 @@ public class RoleDB {
          EntityManager em = DBUtil .getEmFactory().createEntityManager();
         
     try {
-           Role role = em.find(Role.class, roleId);
+           Role role = em.find(Role.class, role_id);
            return role;
            
         } finally {
