@@ -31,7 +31,7 @@
                     <input type="text" name="password" placeholder="Password" value="${password}"><br>
                     <select name="role">
                         <c:forEach items="${roles}" var="role">
-                            <option value ="${role.id}">${role.name}</option>
+                            <option value ="${Role.id}">${Role.name}</option>
                         </c:forEach>
                     </select><br>
                     <input type="hidden" name="action" value="add">
@@ -52,29 +52,29 @@
                     </tr>
                     <c:forEach items="${users}" var="user">
                         <tr>
-                            <td>${user.email}</td>
-                            <td>${user.fname}</td>
-                            <td>${user.lname}</td>
+                            <td>${User.email}</td>
+                            <td>${User.fname}</td>
+                            <td>${User.lname}</td>
                             
                             <c:forEach items="${roles}" var="role">
-                                <c:if test = "${user.role eq role.id}">
-                                    <td>${role.name}</td>
+                                <c:if test = "${User.role eq Role.id}">
+                                    <td>${Role.name}</td>
                                 </c:if>
                             </c:forEach>
                                     
-                            <c:if test="${user.active eq 1}">
+                            <c:if test="${User.active eq 1}">
                                 <td>
                                     <input type="checkbox" disabled checked>
                                 </td>
                             </c:if>
-                            <c:if test="${user.active != 1}">
+                            <c:if test="${User.active != 1}">
                                 <td>
                                     <input type="checkbox" disabled>
                                 </td>
                             </c:if>
-                            <td><a href="user?action=view&amp;email=${user.email}"><i class="fas fa-user-edit"></i></a><br></td>
+                            <td><a href="user?action=view&amp;email=${User.email}"><i class="fas fa-user-edit"></i></a><br></td>
                             <td>
-                                <a href="user?action=delete&amp;email=${user.email}"><i class="fas fa-user-times"></i></a><br></td>
+                                <a href="user?action=delete&amp;email=${User.email}"><i class="fas fa-user-times"></i></a><br></td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -93,7 +93,7 @@
                                 </c:if>
                                      
                                 <c:if test = "${role.id ne editUser.role}">
-                                    <option value ="${role.id}">${role.name}</option>
+                                    <option value ="${Role.id}">${Role.name}</option>
                                 </c:if>
                                     
                             </c:forEach>
