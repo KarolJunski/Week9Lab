@@ -57,17 +57,17 @@
                             <td>${user.lastName}</td>
                             
                             <c:forEach items="${roles}" var="role">
-                                <c:if test = "${user.role eq role.roleId}">
+                                <c:if test = "${user.role.roleId eq role.roleId}">
                                     <td>${role.roleName}</td>
                                 </c:if>
                             </c:forEach>
                                     
-                            <c:if test="${user.active eq 1}">
+                            <c:if test="${user.active eq true}">
                                 <td>
                                     <input type="checkbox" disabled checked>
                                 </td>
                             </c:if>
-                            <c:if test="${user.active != 1}">
+                            <c:if test="${user.active != true}">
                                 <td>
                                     <input type="checkbox" disabled>
                                 </td>
@@ -88,11 +88,11 @@
                         <input type="text" name="editPassword" value="${editUser.password}"><br>
                         <select name="editRole">
                             <c:forEach items="${roles}" var="role">
-                                <c:if test = "${role.roleId eq editUser.role}">
+                                <c:if test = "${role.roleId eq editUser.role.roleId}">
                                      <option selected value ="${role.roleId}">${role.roleName}</option>
                                 </c:if>
                                      
-                                <c:if test = "${role.id ne editUser.role}">
+                                <c:if test = "${role.roleId ne editUser.role.roleId}">
                                     <option value ="${role.roleId}">${role.roleName}</option>
                                 </c:if>
                                     
